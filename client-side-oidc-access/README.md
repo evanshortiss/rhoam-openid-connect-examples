@@ -27,10 +27,19 @@ export PRODUCT_API_URL=https://products-3scale-apicast-production.example-cluste
 
 
 oc new-app $BUILDER~$SOURCE \
+-l "app.openshift.io/runtime=nginx"
 --context-dir=client-side-oidc-access/ \
 --build-env REACT_APP_KEYCLOAK_URL=$KEYCLOAK_URL \
 --build-env REACT_APP_KEYCLOAK_REALM=$KEYCLOAK_REALM \
 --build-env REACT_APP_KEYCLOAK_CLIENT_ID=$KEYCLOAK_CLIENT_ID \
 --build-env REACT_APP_PRODUCT_API_URL=$PRODUCT_API_URL \
+--build-env BUILD_OUTPUT_DIR=build \
 --name client-webapp
+
+# Expose the service via HTTPS
+oc expose svc client-webapp
+oc patch route client-webapp --type=json -p='[{"op":"replace","path":"/spec/tls","value":{"termination":"edge","insecureEdgeTerminationPolicy":"Redirect"}}]'
+
+# Print the URL used to access the application
+oc get route client-webapp -o jsonpath='{.spec.host}'
 ```
