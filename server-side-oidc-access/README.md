@@ -10,18 +10,24 @@
 
 ```bash
 export SOURCE=https://github.com/evanshortiss/rhoam-openid-connect-examples
-
-export KEYCLOAK_CONFIG='{"realm": "the-realm-name","auth-server-url": "https://keycloak.some-example-host.come/auth/","ssl-required": "external","resource": "the-client-id","credentials": {"secret": "foobarblah"},"confidential-port": 0}'
 export PRODUCT_API_URL=https://products-apicast-production.replace-me.com/products
 
+# Create a file named keycloak.json in your working directory. Paste the JSON
+# content from the "Installation" tab under the client settings for your API
+# client entry in SSO into the file. Run this command after doing that
+oc create secret generic keycloak-config --from-file=keycloak.json
+
+# Create a build, service, and deployment for the application
 oc new-app $SOURCE \
 -l "app.openshift.io/runtime=nodejs"
 --docker-image="registry.access.redhat.com/ubi8/nodejs-14:latest" \
 --context-dir=server-side-oidc-access \
--e KEYCLOAK_CONFIG=$KEYCLOAK_CONFIG \
 -e PRODUCT_API_URL=$PRODUCT_API_URL \
 -e NODE_ENV=production \
 --name server-webapp
+
+# Add the keycloak.json into the deployment environment
+oc set env deployment/server-webapp --from=secret/keycloak-config
 
 # Expose the service via HTTPS
 oc expose svc server-webapp
