@@ -25,7 +25,7 @@ const ProductsList: React.FC<{ token: string }> = ({ token }) => {
     }
 
     setTimeout(() => fetchProducts(), 1000)
-  }, [])
+  }, [token])
 
 
   if (products) {

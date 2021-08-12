@@ -24,9 +24,9 @@ function App () {
     <div className="max-w-screen-lg px-8 pt-6 mx-auto">
       <header className="flex w-full items-center pb-3 border-b border-blue-300">
         <div className="flex">
-          <h2 className="text-2xl">
-            <img className="h-12 w-12 p-2 inline-block animate-bounce" src="logo.svg" alt="React Logo" />
-            Client-Side API Products Store
+          <img className="h-12 w-12 p-2 inline-block" src="logo.svg" alt="React Logo" />
+          <h2 className="text-2xl p-2">
+            Client-Side Products Reseller
           </h2>
         </div>
         <div className="flex-1"></div>

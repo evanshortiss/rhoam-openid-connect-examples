@@ -34,7 +34,7 @@ const UserContextProdiver: React.FunctionComponent = (props) => {
     if (initialized && keycloak.token) {
       fetchProfile()
     }
-  }, [initialized]);
+  }, [keycloak, initialized]);
 
   return (
     <UserContext.Provider value={ctx}>

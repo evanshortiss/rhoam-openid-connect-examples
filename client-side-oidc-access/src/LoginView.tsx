@@ -10,9 +10,9 @@ function LoginView () {
     return <Spinner message="Authorized"/>
   } else {
     return (
-      <div className="text-center max-w-lg mx-auto">
+      <div className="text-center max-w-xlg mx-auto pt-4">
         <h2 className="text-2xl py-2 font-semibold">Welcome to the Store!</h2>
-        <p>You need to login to view our products. Once you're logged in your browser will fetch products directly from our API.</p>
+        <p>Once you're logged in your browser will fetch products directly from our partner's API.</p>
       </div>
     )
   }
