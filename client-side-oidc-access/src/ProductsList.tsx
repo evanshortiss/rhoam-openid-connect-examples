@@ -34,10 +34,10 @@ const ProductsList: React.FC<{ token: string }> = ({ token }) => {
         <div key={`product-${product.id}`} className="grid grid-cols-5 gap-4 border-t pb-2 mb-4">
           <div key={`product-detail-${product.id}`} className="col-span-4 pr-4">
             <h3 className="font-semibold pb-2 pt-2">{product.name}</h3>
-            <p className="text-gray-700">{product.description}</p>
+            <p className="text-gray-200">{product.description}</p>
           </div>
           <div key={`product-price-${product.id}`} className="col-span-1 flex items-start text-right">
-            <p className="font-semibold text-gray-700 w-full pt-2">${product.price.toFixed(2)}</p>
+            <p className="font-semibold text-gray-200 w-full pt-2">${product.price.toFixed(2)}</p>
           </div>
         </div>
       )
@@ -45,10 +45,10 @@ const ProductsList: React.FC<{ token: string }> = ({ token }) => {
     return (
       <div>
         <div className="grid grid-cols-5 gap-4 py-4">
-          <h2 className="text-2xl text-gray-500 col-span-4">
+          <h2 className="text-2xl text-gray-400 col-span-4">
             Products
           </h2>
-          <h2 className="text-2xl text-gray-500 col-span-1 text-right">
+          <h2 className="text-2xl text-gray-400 col-span-1 text-right">
             Price
           </h2>
         </div>
