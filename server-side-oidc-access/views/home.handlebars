@@ -1,9 +1,9 @@
 
-<div class="text-center max-w-lg mx-auto pt-4">
+<div class="text-center max-w-xlg mx-auto pt-4">
   <h2 class="text-2xl py-2 font-semibold">Welcome to the Store!</h2>
   {{#if loggedIn}}
     Looks like you're already logged in. Want to <a href='/products' class="font-bold text-blue-500 underline">view our products</a>?
   {{else}}
-    <p>You need to login to view our products. Once you're logged in your browser will fetch products directly from our API.</p>
+    <p>Once you're logged in our server will fetch products from our partner's API on your behalf.</p>
   {{/if}}
 </div>
