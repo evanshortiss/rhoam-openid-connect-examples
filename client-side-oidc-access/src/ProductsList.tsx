@@ -10,18 +10,25 @@ type Product = {
 
 const ProductsList: React.FC<{ token: string }> = ({ token }) => {
   const [ products, setProducts ] = useState<Product[]>()
+  const [ message, setMessage ] = useState<string>('Fetching Products')
 
   useEffect(() => {
     const fetchProducts = async () => {
       const url = new URL('/api/products', process.env.REACT_APP_PRODUCT_API_URL as string)
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      const products = await response.json() as Product[]
-      setProducts(products)
+
+      try {
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const products = await response.json() as Product[]
+        setProducts(products)
+      } catch (e) {
+        console.error('error fetching products', e)
+        setMessage(`Failed to fetch products: ${e.toString()}`)
+      }
     }
 
     setTimeout(() => fetchProducts(), 1000)
@@ -56,7 +63,7 @@ const ProductsList: React.FC<{ token: string }> = ({ token }) => {
       </div>
     )
   } else {
-    return <Spinner message="Fetching Products"/>
+    return <Spinner message={message}/>
   }
 }
 
