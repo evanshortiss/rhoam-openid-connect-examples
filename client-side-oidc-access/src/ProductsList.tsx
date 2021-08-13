@@ -10,7 +10,7 @@ type Product = {
 
 const ProductsList: React.FC<{ token: string }> = ({ token }) => {
   const [ products, setProducts ] = useState<Product[]>()
-  const [ message, setMessage ] = useState<string>('Fetching Products')
+  const [ error, setError ] = useState<Error|undefined>()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,15 +27,21 @@ const ProductsList: React.FC<{ token: string }> = ({ token }) => {
         setProducts(products)
       } catch (e) {
         console.error('error fetching products', e)
-        setMessage(`Failed to fetch products: ${e.toString()}`)
+        setError(e)
       }
     }
 
     setTimeout(() => fetchProducts(), 1000)
   }, [token])
 
-
-  if (products) {
+  if (error) {
+    return (
+      <div className="w-full my-10 text-center">
+        <h2 className="text-2xl pb-5">Failed to fetch Products</h2>
+        <p className="font-mono">Error: {error.message}</p>
+      </div>
+    );
+  } else if (products) {
     const els = products.map((product) => {
       return (
         <div key={`product-${product.id}`} className="grid grid-cols-5 gap-4 border-t pb-2 mb-4">
@@ -63,7 +69,7 @@ const ProductsList: React.FC<{ token: string }> = ({ token }) => {
       </div>
     )
   } else {
-    return <Spinner message={message}/>
+    return <Spinner message="Fetching Products"/>
   }
 }
 
