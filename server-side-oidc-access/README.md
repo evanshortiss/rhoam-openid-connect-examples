@@ -19,7 +19,7 @@ oc create secret generic keycloak-config --from-file=keycloak.json
 
 # Create a build, service, and deployment for the application
 oc new-app $SOURCE \
--l "app.openshift.io/runtime=nodejs"
+-l "app.openshift.io/runtime=nodejs" \
 --docker-image="registry.access.redhat.com/ubi8/nodejs-14:latest" \
 --context-dir=server-side-oidc-access \
 -e PRODUCT_API_URL=$PRODUCT_API_URL \
