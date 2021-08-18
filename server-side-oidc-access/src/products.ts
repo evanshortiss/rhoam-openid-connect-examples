@@ -15,7 +15,7 @@ export class ProductsRequestError extends Error {
 }
 
 export default function fetchProducts (url: string, token: string) {
-  log('fetching products from:', url)
+  log('fetching products from %s with token %s', url, token)
   return fetch(url, {
     method: 'GET',
     headers: {
