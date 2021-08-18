@@ -102,7 +102,8 @@ export default function getApplicationServer (params: ApplicationParams, config:
 
     if (boom.isBoom(err)) {
       res.status(err.output.statusCode).render('error.handlebars', {
-        message: err.output.payload.message
+        message: err.output.payload.message,
+        loggedIn: req.kauth.grant && !req.kauth.grant.isExpired()
       })
     } else {
       res.status(500).end('internal server error')
